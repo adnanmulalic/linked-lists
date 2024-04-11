@@ -69,6 +69,23 @@ class LinkedList {
         return lastNode;
     }
 
+    at(index) {
+        let counter = 0;
+        let nodeAtGivenIndex = "No node at this index";
+        function returnNodeAtGivenIndex(node) {
+            if (counter === index) {
+                nodeAtGivenIndex = new LinkedList(node.nodeData, node.nextNode);
+                return;
+            }
+            counter++;
+            if (node.nextNode !== null) {
+                returnNodeAtGivenIndex(node.nextNode)
+            }
+        } 
+        returnNodeAtGivenIndex(this);
+        return nodeAtGivenIndex;
+    }
+
 
     pop() {
         let poppedValue = null;
@@ -88,6 +105,34 @@ class LinkedList {
             travelToSecondLastNode(this)
             return poppedValue;
         }
+    }
+
+    contains(value) {
+        let isValueInList = false;
+        function findMatchingValue(node) {
+            if (node.nodeData === value) {
+                isValueInList = true;
+                return;
+            }
+            node.nextNode !== null && findMatchingValue(node.nextNode);
+        }
+        findMatchingValue(this);
+        return isValueInList;
+    }
+
+    find(value) {
+        let indexOfNode = null;
+        let counter = 0;
+        function findIndexOfValue(node) {
+            if (node.nodeData === value) {
+                indexOfNode = counter;
+                return;
+            }
+            counter++;
+            node.nextNode !== null && findIndexOfValue(node.nextNode);
+        }
+        findIndexOfValue(this);
+        return indexOfNode;
     }
 }
 
