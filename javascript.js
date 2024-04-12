@@ -4,20 +4,9 @@ class LinkedList {
         this.nextNode = nextNode;
     }
 
-    // travelThroughList(list, newValue) {
-    //     if (list.nextNode === null) {
-    //         list.nextNode = new LinkedList(newValue);
-    //         return
-    //     }
-    //     console.log(list.nodeData, newValue);
-    //     this.travelThroughList(list.nextNode, newValue);
-
-    // }
-
     append(value) {
         if (this.nodeData === null) {
             this.nodeData = value;
-            //this.nextNode = null;
         } else {
             function travelToLastNode(node, newValue) {
                 if (node.nextNode === null) {
@@ -32,8 +21,7 @@ class LinkedList {
     }
 
     prepend(value) {
-        //let previousList = this; 
-        this.nextNode = new LinkedList(this.nodeData, this.nextNode); //{...previousList}
+        this.nextNode = new LinkedList(this.nodeData, this.nextNode);
         this.nodeData = value;
     }
 
@@ -51,7 +39,8 @@ class LinkedList {
     }
 
     head() {
-        return new LinkedList(this.nodeData, this.nextNode);
+        return this;
+        //return new LinkedList(this.nodeData, this.nextNode);
     }
 
     tail() {
@@ -59,8 +48,7 @@ class LinkedList {
         function travelToLastNode(node) {
             if (node.nextNode === null) {
                 lastNode = new LinkedList(node.nodeData)
-                console.log(lastNode)
-                return lastNode;
+                return;
             }
             travelToLastNode(node.nextNode);
     
@@ -134,18 +122,18 @@ class LinkedList {
         findIndexOfValue(this);
         return indexOfNode;
     }
-}
 
-let testList = {
-    nodeData : 1,
-    nextNode : {
-        nodeData: 2,
-        nextNode: {
-            nodeData: 3,
-            nextNode: {
-                nodeData: 4,
-                nextNode: null
+    toString() {
+        let listInString = "";
+        function travelToLastNode(node) {
+            if (node.nextNode === null) {
+                listInString += `( ${node.nodeData} ) -> null`;
+                return;
             }
+            listInString += `( ${node.nodeData} ) -> `;
+            travelToLastNode(node.nextNode);
         }
+        travelToLastNode(this);
+        return listInString;
     }
 }
