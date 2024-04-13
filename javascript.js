@@ -1,32 +1,44 @@
-class LinkedList {
+class ListNode {
     constructor(nodeData = null, nextNode = null) {
         this.nodeData = nodeData;
         this.nextNode = nextNode;
     }
 
+}
+
+
+class LinkedList {
+    constructor() {
+        this.nodeHead = null;
+    }
+
     append(value) {
-        if (this.nodeData === null) {
-            this.nodeData = value;
+        if (this.nodeHead === null) {
+            this.nodeHead = new ListNode(value);
         } else {
             function travelToLastNode(node, newValue) {
                 if (node.nextNode === null) {
-                    node.nextNode = new LinkedList(newValue);
+                    node.nextNode = new ListNode(newValue);
                     return;
                 }
                 travelToLastNode(node.nextNode, newValue);
         
             }
-            travelToLastNode(this, value);
+            travelToLastNode(this.nodeHead, value);
         }
     }
 
     prepend(value) {
-        this.nextNode = new LinkedList(this.nodeData, this.nextNode);
-        this.nodeData = value;
+        if (this.nodeHead === null) {
+            this.nodeHead = new ListNode(value);
+        } else {
+            this.nodeHead.nextNode = new ListNode(this.nodeHead.nodeData, this.nodeHead.nextNode);
+            this.nodeHead.nodeData = value;
+        }
     }
 
     size() {
-        let nodeCounter = this.nodeData === null ? 0 : 1;
+        let nodeCounter = this.nodeHead === null ? 0 : 1;
         function countNodes(node) {
             if (node.nextNode === null) {
                 return;
@@ -34,26 +46,25 @@ class LinkedList {
             nodeCounter++;
             countNodes(node.nextNode);
         }
-        countNodes(this);
+        countNodes(this.nodeHead);
         return nodeCounter;
     }
 
     head() {
-        return this;
-        //return new LinkedList(this.nodeData, this.nextNode);
+        return this.nodeHead;
     }
 
     tail() {
         let lastNode = null;
         function travelToLastNode(node) {
             if (node.nextNode === null) {
-                lastNode = new LinkedList(node.nodeData)
+                lastNode = new ListNode(node.nodeData);
                 return;
             }
             travelToLastNode(node.nextNode);
     
         }
-        travelToLastNode(this);
+        travelToLastNode(this.nodeHead);
         return lastNode;
     }
 
@@ -62,7 +73,7 @@ class LinkedList {
         let nodeAtGivenIndex = "No node at this index";
         function returnNodeAtGivenIndex(node) {
             if (counter === index) {
-                nodeAtGivenIndex = new LinkedList(node.nodeData, node.nextNode);
+                nodeAtGivenIndex = node;
                 return;
             }
             counter++;
@@ -70,28 +81,23 @@ class LinkedList {
                 returnNodeAtGivenIndex(node.nextNode)
             }
         } 
-        returnNodeAtGivenIndex(this);
+        returnNodeAtGivenIndex(this.nodeHead);
         return nodeAtGivenIndex;
     }
 
 
     pop() {
-        let poppedValue = null;
-        if (this.nextNode === null) {
-            poppedValue = this.nodeData;
-            this.nodeData = null;
-            return poppedValue;
+        if (this.nodeHead.nextNode === null) {
+            this.nodeHead = null;
         } else {
             function travelToSecondLastNode(node) {
                 if (node.nextNode.nextNode === null) {
-                    poppedValue = node.nextNode.nodeData;
                     node.nextNode = null;
-                    return poppedValue;
+                    return; 
                 }
                 travelToSecondLastNode(node.nextNode);
             }
-            travelToSecondLastNode(this)
-            return poppedValue;
+            travelToSecondLastNode(this.nodeHead);
         }
     }
 
@@ -104,7 +110,7 @@ class LinkedList {
             }
             node.nextNode !== null && findMatchingValue(node.nextNode);
         }
-        findMatchingValue(this);
+        findMatchingValue(this.nodeHead);
         return isValueInList;
     }
 
@@ -119,7 +125,7 @@ class LinkedList {
             counter++;
             node.nextNode !== null && findIndexOfValue(node.nextNode);
         }
-        findIndexOfValue(this);
+        findIndexOfValue(this.nodeHead);
         return indexOfNode;
     }
 
@@ -133,7 +139,7 @@ class LinkedList {
             listInString += `( ${node.nodeData} ) -> `;
             travelToLastNode(node.nextNode);
         }
-        travelToLastNode(this);
+        travelToLastNode(this.nodeHead);
         return listInString;
     }
 }
