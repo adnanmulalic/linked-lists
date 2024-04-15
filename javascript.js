@@ -142,4 +142,18 @@ class LinkedList {
         travelToLastNode(this.nodeHead);
         return listInString;
     }
+
+    insertAt(value, index) {
+        function insertNodeAtGivenIndex(node, counter = 0) {
+            if (counter === index) {
+                node.nextNode = new ListNode(node.nodeData, node.nextNode);
+                node.nodeData = value;
+                return;
+            }
+            console.log(counter)
+            insertNodeAtGivenIndex(node.nextNode, counter + 1)
+            
+        } 
+        insertNodeAtGivenIndex(this.nodeHead);
+    }
 }
