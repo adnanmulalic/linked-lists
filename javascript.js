@@ -150,10 +150,42 @@ class LinkedList {
                 node.nodeData = value;
                 return;
             }
-            console.log(counter)
-            insertNodeAtGivenIndex(node.nextNode, counter + 1)
-            
+            if (node.nextNode !== null) {
+                insertNodeAtGivenIndex(node.nextNode, counter + 1)
+            } else {
+                console.log("Index not available. Use append to add node to the end of the list.")
+            }  
+
+        }
+        if (this.nodeHead === null) {
+            this.nodeHead = new ListNode(value)
+        } else {
+            insertNodeAtGivenIndex(this.nodeHead);
         } 
-        insertNodeAtGivenIndex(this.nodeHead);
+    }
+
+    removeAt(index) {
+        function removeNodeAtGivenIndex(node, counter = 0) {
+            if (counter === index) {
+                node.nodeData = node.nextNode.nodeData;
+                node.nextNode = node.nextNode.nextNode;
+                return;
+            } else if (node.nextNode.nextNode === null) {
+                node.nextNode = null;
+                return;
+            }
+            if (node.nextNode !== null) {
+                removeNodeAtGivenIndex(node.nextNode, counter + 1);
+            } else {
+                console.log("Index not available.")
+            }
+        }
+        if (this.nodeHead === null) {
+            return "List is empty."
+        } else if (this.nodeHead.nextNode === null) {
+            this.nodeHead = null;
+        } else {
+            removeNodeAtGivenIndex(this.nodeHead)
+        }
     }
 }
