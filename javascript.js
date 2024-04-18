@@ -46,8 +46,12 @@ class LinkedList {
             nodeCounter++;
             countNodes(node.nextNode);
         }
-        countNodes(this.nodeHead);
-        return nodeCounter;
+        if (this.nodeHead) {
+            countNodes(this.nodeHead);
+            return nodeCounter;
+        } else {
+            return nodeCounter;
+        }
     }
 
     head() {
@@ -139,8 +143,12 @@ class LinkedList {
             listInString += `( ${node.nodeData} ) -> `;
             travelToLastNode(node.nextNode);
         }
-        travelToLastNode(this.nodeHead);
-        return listInString;
+        if (this.nodeHead === null) {
+            return "List is empty."
+        } else {
+            travelToLastNode(this.nodeHead);
+            return listInString;
+        }
     }
 
     insertAt(value, index) {
@@ -182,9 +190,12 @@ class LinkedList {
         }
         if (this.nodeHead === null) {
             return "List is empty."
-        } else if (this.nodeHead.nextNode === null) {
+        } else if (this.nodeHead.nextNode === null && index === 0) {
             this.nodeHead = null;
-        } else {
+        } else if (this.nodeHead.nextNode === null && index !== 0) {
+            return "Index not available";
+        }
+         else {
             removeNodeAtGivenIndex(this.nodeHead)
         }
     }
