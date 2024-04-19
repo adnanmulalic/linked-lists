@@ -6,7 +6,6 @@ class ListNode {
 
 }
 
-
 class LinkedList {
     constructor() {
         this.nodeHead = null;
@@ -144,7 +143,7 @@ class LinkedList {
             travelToLastNode(node.nextNode);
         }
         if (this.nodeHead === null) {
-            return "List is empty."
+            return "List is empty.";
         } else {
             travelToLastNode(this.nodeHead);
             return listInString;
@@ -159,14 +158,14 @@ class LinkedList {
                 return;
             }
             if (node.nextNode !== null) {
-                insertNodeAtGivenIndex(node.nextNode, counter + 1)
+                insertNodeAtGivenIndex(node.nextNode, counter + 1);
             } else {
-                console.log("Index not available. Use append to add node to the end of the list.")
+                console.log("Index not available. Use append to add node to the end of the list.");
             }  
 
         }
         if (this.nodeHead === null) {
-            this.nodeHead = new ListNode(value)
+            this.nodeHead = new ListNode(value);
         } else {
             insertNodeAtGivenIndex(this.nodeHead);
         } 
@@ -185,18 +184,18 @@ class LinkedList {
             if (node.nextNode !== null) {
                 removeNodeAtGivenIndex(node.nextNode, counter + 1);
             } else {
-                console.log("Index not available.")
+                console.log("Index not available.");
             }
         }
         if (this.nodeHead === null) {
-            return "List is empty."
+            return "List is empty.";
         } else if (this.nodeHead.nextNode === null && index === 0) {
             this.nodeHead = null;
         } else if (this.nodeHead.nextNode === null && index !== 0) {
             return "Index not available";
         }
          else {
-            removeNodeAtGivenIndex(this.nodeHead)
+            removeNodeAtGivenIndex(this.nodeHead);
         }
     }
 }
